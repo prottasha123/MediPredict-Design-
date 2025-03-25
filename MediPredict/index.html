@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic - Beautiful, Minimalist Design</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    :root {
+      --background: hsl(210, 20%, 98%);
+      --foreground: hsl(210, 25%, 12%);
+      --primary: hsl(210, 75%, 50%);
+      --primary-foreground: hsl(0, 0%, 100%);
+      --muted-foreground: hsl(210, 25%, 40%);
+      --border: hsl(210, 20%, 90%);
+      --radius: 0.75rem;
+    }
+    
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    header {
+      height: 4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo-icon {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+    }
+    
+    .logo-icon-bg {
+      position: absolute;
+      inset: 0;
+      background-color: var(--primary);
+      opacity: 0.2;
+      animation: pulse 3s infinite ease-in-out;
+    }
+    
+    .logo-icon-content {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(66, 153, 225, 0.1);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(66, 153, 225, 0.2);
+    }
+    
+    .logo-icon-content span {
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* Buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: var(--foreground);
+    }
+    
+    .btn-ghost:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background-color: hsl(210, 75%, 45%);
+      box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-outline:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .btn-lg {
+      padding: 0.75rem 2rem;
+      font-size: 1.125rem;
+      border-radius: 0.75rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bg-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -10;
+    }
+    
+    .bg-blob-1 {
+      position: absolute;
+      top: 33%;
+      left: -10rem;
+      width: 20rem;
+      height: 20rem;
+      background-color: rgba(66, 153, 225, 0.1);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    
+    .bg-blob-2 {
+      position: absolute;
+      top: 66%;
+      right: -10rem;
+      width: 20rem;
+      height: 20rem;
+      background-color: rgba(66, 153, 225, 0.1);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    
+    .hero-content {
+      max-width: 64rem;
+      margin: 0 auto;
+      text-align: center;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.025em;
+    }
+    
+    .hero-title span {
+      color: var(--primary);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--muted-foreground);
+      max-width: 32rem;
+      margin: 0 auto 1.5rem;
+      line-height: 1.5;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    
+    /* Features section */
+    .features {
+      padding: 0 1.5rem 5rem;
+    }
+    
+    .features-grid {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: calc(var(--delay) * 0.1s);
+      opacity: 0;
+    }
+    
+    .feature-icon {
+      height: 3rem;
+      width: 3rem;
+      border-radius: 0.75rem;
+      background-color: rgba(66, 153, 225, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-icon-inner {
+      height: 1.5rem;
+      width: 1.5rem;
+      background-color: var(--primary);
+      border-radius: 0.5rem;
+      opacity: 0.8;
+    }
+    
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-description {
+      color: var(--muted-foreground);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+    
+    /* Responsive */
+    @media (min-width: 640px) {
+      .hero-buttons {
+        flex-direction: row;
+      }
+      
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 3.75rem;
+      }
+      
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <div class="logo-icon-bg"></div>
+        <div class="logo-icon-content">
+          <span>A</span>
+        </div>
+      </div>
+      <span class="logo-text">Aesthetic</span>
+    </div>
+    
+    <div class="nav-buttons">
+      <a href="/signin" class="btn btn-ghost">Sign In</a>
+      <a href="/signup" class="btn btn-primary">Sign Up</a>
+    </div>
+  </header>
+  
+  <main>
+    <section class="hero">
+      <div class="bg-decoration">
+        <div class="bg-blob-1"></div>
+        <div class="bg-blob-2"></div>
+      </div>
+      
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Beautiful, <span>Minimalist</span> Design
+        </h1>
+        <p class="hero-subtitle">
+          Experience elegant user interfaces with smooth animations and pixel-perfect details.
+        </p>
+        <div class="hero-buttons">
+          <a href="/signup" class="btn btn-primary btn-lg">
+            Get Started
+          </a>
+          <a href="/signin" class="btn btn-outline btn-lg">
+            Sign In
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <section class="features">
+      <div class="features-grid">
+        <div class="feature-card" style="--delay: 1;">
+          <div class="feature-icon">
+            <div class="feature-icon-inner"></div>
+          </div>
+          <h3 class="feature-title">Feature 1</h3>
+          <p class="feature-description">
+            Clean and elegant design inspired by modern aesthetics principles.
+          </p>
+        </div>
+        
+        <div class="feature-card" style="--delay: 2;">
+          <div class="feature-icon">
+            <div class="feature-icon-inner"></div>
+          </div>
+          <h3 class="feature-title">Feature 2</h3>
+          <p class="feature-description">
+            Clean and elegant design inspired by modern aesthetics principles.
+          </p>
+        </div>
+        
+        <div class="feature-card" style="--delay: 3;">
+          <div class="feature-icon">
+            <div class="feature-icon-inner"></div>
+          </div>
+          <h3 class="feature-title">Feature 3</h3>
+          <p class="feature-description">
+            Clean and elegant design inspired by modern aesthetics principles.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

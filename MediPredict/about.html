@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - MediPredict</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background-color: rgba(79, 209, 197, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4FD1C5;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #4FD1C5;
+    }
+    
+    .nav-button {
+      background-color: transparent;
+      border: 1px solid #e2e8f0;
+      color: #4b5563;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-button:hover {
+      background-color: rgba(79, 209, 197, 0.1);
+      color: #4FD1C5;
+    }
+    
+    /* About Page */
+    .about-page {
+      padding-top: 80px;
+      padding-bottom: 48px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .page-title {
+      margin-bottom: 48px;
+    }
+    
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .page-title p {
+      font-size: 1.25rem;
+      color: #4a5568;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .section {
+      margin-bottom: 64px;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    
+    /* Mission section */
+    .mission-box {
+      background-color: rgba(79, 209, 197, 0.05);
+      padding: 32px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .mission-box p {
+      font-size: 1.1rem;
+      color: #4a5568;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    
+    /* Values section */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+    }
+    
+    @media (min-width: 640px) {
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .values-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .value-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .value-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      background-color: rgba(79, 209, 197, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #4FD1C5;
+    }
+    
+    .value-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .value-description {
+      color: #4a5568;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    /* Team section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 32px;
+    }
+    
+    @media (min-width: 768px) {
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .team-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .member-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .member-info {
+      padding: 24px;
+    }
+    
+    .member-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+    
+    .member-role {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4FD1C5;
+      margin-bottom: 12px;
+    }
+    
+    .member-bio {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* CTA section */
+    .cta-section {
+      background-color: rgba(79, 209, 197, 0.05);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .cta-text {
+      color: #4a5568;
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .primary-button {
+      background-color: #4FD1C5;
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .primary-button:hover {
+      background-color: #38B2AC;
+    }
+    
+    .secondary-button {
+      background-color: #718096;
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .secondary-button:hover {
+      background-color: #4A5568;
+    }
+    
+    /* Animation for card reveal */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animated {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    .delay-7 { animation-delay: 0.7s; }
+    .delay-8 { animation-delay: 0.8s; }
+    .delay-9 { animation-delay: 0.9s; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-stethoscope" style="color: #4FD1C5;"></i>
+        </div>
+        <span class="logo-text">MediPredict</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Predict</a>
+        <a href="#"><i class="fas fa-heart"></i> Health Info</a>
+        <a href="#" class="active"><i class="fas fa-info-circle"></i> About</a>
+      </div>
+      
+      <button class="nav-button">Dashboard</button>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main class="about-page container">
+    <div class="text-center page-title animated delay-1">
+      <h1>About MediPredict</h1>
+      <p>We're on a mission to transform healthcare through advanced AI, making disease prediction and health insights accessible to everyone.</p>
+    </div>
+    
+    <!-- Mission Section -->
+    <section class="section animated delay-2">
+      <h2 class="section-title">Our Mission</h2>
+      <div class="mission-box">
+        <p>
+          MediPredict was founded with a clear vision: to harness the power of artificial intelligence to improve healthcare outcomes worldwide. By combining cutting-edge machine learning with medical expertise, we've created a platform that helps users understand potential health risks early, access reliable health information, and make informed decisions about their wellbeing.
+        </p>
+        <p>
+          Our disease prediction algorithms are trained on vast datasets and continuously refined by our team of medical professionals and data scientists. We believe that early detection and prevention are key to better health outcomes, and we're committed to making these tools available to everyone.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Values Section -->
+    <section class="section animated delay-3">
+      <h2 class="section-title">Our Values</h2>
+      <div class="values-grid">
+        <!-- Value 1 -->
+        <div class="value-card animated delay-1">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="value-title">Scientific Excellence</h3>
+          </div>
+          <p class="value-description">We ground all our work in peer-reviewed research and the latest scientific advancements.</p>
+        </div>
+        
+        <!-- Value 2 -->
+        <div class="value-card animated delay-2">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="value-title">Data Security</h3>
+          </div>
+          <p class="value-description">Your health information is protected with enterprise-grade security and strict privacy protocols.</p>
+        </div>
+        
+        <!-- Value 3 -->
+        <div class="value-card animated delay-3">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-sparkles"></i>
+            </div>
+            <h3 class="value-title">Innovation</h3>
+          </div>
+          <p class="value-description">We continuously improve our AI models and technology to provide more accurate health insights.</p>
+        </div>
+        
+        <!-- Value 4 -->
+        <div class="value-card animated delay-4">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="value-title">Accessibility</h3>
+          </div>
+          <p class="value-description">Making advanced healthcare technology accessible to everyone, regardless of location or background.</p>
+        </div>
+        
+        <!-- Value 5 -->
+        <div class="value-card animated delay-5">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-award"></i>
+            </div>
+            <h3 class="value-title">Expertise</h3>
+          </div>
+          <p class="value-description">Our team combines medical expertise with technical excellence to deliver reliable health tools.</p>
+        </div>
+        
+        <!-- Value 6 -->
+        <div class="value-card animated delay-6">
+          <div class="value-header">
+            <div class="value-icon">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+            <h3 class="value-title">User-Centered</h3>
+          </div>
+          <p class="value-description">We design our platform based on user feedback and real healthcare needs.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="section animated delay-4">
+      <h2 class="section-title">Our Team</h2>
+      <div class="team-grid">
+        <!-- Team Member 1 -->
+        <div class="team-card animated delay-1">
+          <img class="member-image" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Sarah Johnson">
+          <div class="member-info">
+            <h3 class="member-name">Dr. Sarah Johnson</h3>
+            <p class="member-role">Medical Director</p>
+            <p class="member-bio">Board-certified in internal medicine with over 15 years of experience in clinical practice and healthcare technology.</p>
+          </div>
+        </div>
+        
+        <!-- Team Member 2 -->
+        <div class="team-card animated delay-2">
+          <img class="member-image" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+          <div class="member-info">
+            <h3 class="member-name">Michael Chen</h3>
+            <p class="member-role">AI Research Lead</p>
+            <p class="member-bio">PhD in Computer Science specializing in machine learning applications for healthcare with publications in top medical AI journals.</p>
+          </div>
+        </div>
+        
+        <!-- Team Member 3 -->
+        <div class="team-card animated delay-3">
+          <img class="member-image" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Aisha Patel">
+          <div class="member-info">
+            <h3 class="member-name">Aisha Patel</h3>
+            <p class="member-role">Health Data Scientist</p>
+            <p class="member-bio">Former WHO consultant with expertise in epidemiology and healthcare analytics, focused on improving prediction models.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section animated delay-7">
+      <h2 class="cta-title">Ready to Get Started?</h2>
+      <p class="cta-text">Experience the power of AI-driven health insights and disease prediction with MediPredict.</p>
+      <div class="button-group">
+        <a href="#" class="primary-button">Try Disease Prediction</a>
+        <a href="#" class="secondary-button">Explore Health Information</a>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    // Animation script
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const elements = document.querySelectorAll('.animated');
+        elements.forEach(function(element) {
+          element.style.opacity = '1';
+        });
+      }, 100);
+    });
+  </script>
+</body>
+</html>

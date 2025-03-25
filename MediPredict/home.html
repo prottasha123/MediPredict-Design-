@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediPredict - Your Health, Our Priority</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #fff;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background-color: rgba(79, 209, 197, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4FD1C5;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #4FD1C5;
+    }
+    
+    .nav-button {
+      background-color: transparent;
+      border: 1px solid #e2e8f0;
+      color: #4b5563;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-button:hover {
+      background-color: rgba(79, 209, 197, 0.1);
+      color: #4FD1C5;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 64px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    
+    .hero-icon {
+      width: 64px;
+      height: 64px;
+      background-color: rgba(79, 209, 197, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+    }
+    
+    .hero-icon i {
+      font-size: 40px;
+      color: #4FD1C5;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #1a202c;
+    }
+    
+    .hero-subtitle {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .hero-description {
+      font-size: 20px;
+      color: #4a5568;
+      max-width: 800px;
+      margin: 0 auto 32px;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: #4FD1C5;
+      color: white;
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(79, 209, 197, 0.2);
+    }
+    
+    .cta-button:hover {
+      background-color: #38B2AC;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(79, 209, 197, 0.3);
+    }
+    
+    .cta-button i {
+      margin-left: 8px;
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 48px 0 64px;
+      background-color: #f7fafc;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    
+    @media (min-width: 640px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background-color: rgba(79, 209, 197, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    
+    .feature-icon i {
+      font-size: 24px;
+      color: #4FD1C5;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 12px;
+    }
+    
+    .feature-description {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    
+    /* Chat Bot */
+    .chat-bot {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+    }
+    
+    .chat-trigger {
+      width: 60px;
+      height: 60px;
+      background-color: #4FD1C5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+    
+    .chat-trigger:hover {
+      transform: scale(1.1);
+    }
+    
+    .chat-trigger i {
+      font-size: 24px;
+      color: white;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 32px 0;
+      background-color: #f7fafc;
+      border-top: 1px solid #edf2f7;
+      text-align: center;
+    }
+    
+    .footer p {
+      color: #718096;
+      font-size: 14px;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+    .delay-5 { animation-delay: 1.0s; }
+    .delay-6 { animation-delay: 1.2s; }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .hero-subtitle {
+        font-size: 24px;
+      }
+      
+      .hero-description {
+        font-size: 18px;
+      }
+      
+      .cta-button {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-stethoscope"></i>
+        </div>
+        <span class="logo-text">MediPredict</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-heartbeat"></i> Predict</a>
+        <a href="#"><i class="fas fa-heart"></i> Health Info</a>
+        <a href="#"><i class="fas fa-info-circle"></i> About</a>
+      </div>
+      
+      <button class="nav-button">Dashboard</button>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-logo fade-in delay-1">
+          <div class="hero-icon">
+            <i class="fas fa-stethoscope"></i>
+          </div>
+          <h1 class="hero-title">MediPredict</h1>
+        </div>
+        
+        <h2 class="hero-subtitle fade-in delay-2">Your Health, Our Priority</h2>
+        
+        <p class="hero-description fade-in delay-3">
+          Advanced disease prediction powered by artificial intelligence, 
+          providing you with accurate health insights and personalized recommendations.
+        </p>
+        
+        <a href="#" class="cta-button fade-in delay-4">
+          Get Started with Disease Prediction
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card fade-in delay-4">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="feature-title">Advanced Prediction</h3>
+          <p class="feature-description">
+            State-of-the-art machine learning models for accurate disease prediction
+          </p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card fade-in delay-5">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="feature-title">Secure & Private</h3>
+          <p class="feature-description">
+            Your health data is protected with enterprise-grade security
+          </p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card fade-in delay-6">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="feature-title">Expert Support</h3>
+          <p class="feature-description">
+            Access to verified health information and professional guidance
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Chat Bot -->
+  <div class="chat-bot">
+    <div class="chat-trigger">
+      <i class="fas fa-comment-dots"></i>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2023 MediPredict. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Animation for fade-in elements
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const elements = document.querySelectorAll('.fade-in');
+        elements.forEach(function(element) {
+          element.style.opacity = '1';
+        });
+      }, 100);
+      
+      // Chat trigger functionality
+      const chatTrigger = document.querySelector('.chat-trigger');
+      chatTrigger.addEventListener('click', function() {
+        alert('Chat functionality would open here.');
+      });
+      
+      // Get started button
+      const ctaButton = document.querySelector('.cta-button');
+      ctaButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = 'predict.html';
+      });
+    });
+  </script>
+</body>
+</html>

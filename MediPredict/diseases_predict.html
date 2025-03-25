@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Prediction - MediPredict</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background-color: rgba(79, 209, 197, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4FD1C5;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #4FD1C5;
+    }
+    
+    .nav-button {
+      background-color: transparent;
+      border: 1px solid #e2e8f0;
+      color: #4b5563;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-button:hover {
+      background-color: rgba(79, 209, 197, 0.1);
+      color: #4FD1C5;
+    }
+    
+    /* Predict Page */
+    .predict-page {
+      padding: 100px 0 60px;
+    }
+    
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: #2d3748;
+    }
+    
+    /* Disease Categories Section */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+    }
+    
+    @media (min-width: 640px) {
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .disease-card {
+      background-color: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .disease-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+    
+    .card-description {
+      font-size: 0.875rem;
+      color: #718096;
+    }
+    
+    .card-content {
+      padding: 16px 24px;
+    }
+    
+    .card-button {
+      width: 100%;
+      background-color: #4FD1C5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .card-button:hover {
+      background-color: #38B2AC;
+    }
+    
+    /* Prediction Form Section */
+    .prediction-container {
+      max-width: 768px;
+      margin: 0 auto;
+    }
+    
+    .prediction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .prediction-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .back-button {
+      background-color: transparent;
+      border: 1px solid #e2e8f0;
+      color: #4b5563;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .back-button:hover {
+      background-color: #f7fafc;
+    }
+    
+    /* Tabs for Cancer Type */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+    }
+    
+    .tab {
+      padding: 12px 16px;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #718096;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .tab.active {
+      color: #4FD1C5;
+      border-bottom-color: #4FD1C5;
+    }
+    
+    .tab:hover:not(.active) {
+      color: #4a5568;
+      border-bottom-color: #e2e8f0;
+    }
+    
+    /* Form Styles */
+    .form-container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    @media (min-width: 640px) {
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #4FD1C5;
+      box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.2);
+    }
+    
+    .submit-button {
+      width: 100%;
+      background-color: #4FD1C5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 16px;
+    }
+    
+    .submit-button:hover {
+      background-color: #38B2AC;
+    }
+    
+    /* Results Card */
+    .results-card {
+      background-color: rgba(79, 209, 197, 0.05);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .results-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .results-description {
+      font-size: 0.875rem;
+      color: #718096;
+      margin-bottom: 16px;
+    }
+    
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+    
+    .result-label {
+      font-weight: 500;
+      color: #4a5568;
+    }
+    
+    .result-value {
+      font-weight: 600;
+    }
+    
+    .result-value.low {
+      color: #38A169;
+    }
+    
+    .result-value.moderate {
+      color: #DD6B20;
+    }
+    
+    .result-value.high {
+      color: #E53E3E;
+    }
+    
+    .recommendations {
+      margin-top: 16px;
+    }
+    
+    .recommendations-title {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+    
+    .recommendations-list {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    
+    .recommendations-list li {
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-stethoscope" style="color: #4FD1C5;"></i>
+        </div>
+        <span class="logo-text">MediPredict</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="predict.html" class="active"><i class="fas fa-chart-line"></i> Predict</a>
+        <a href="health.html"><i class="fas fa-heart"></i> Health Info</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      </div>
+      
+      <a href="dashboard.html" class="nav-button">Dashboard</a>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main class="predict-page container">
+    <h1 class="page-title">Disease Prediction</h1>
+    
+    <!-- Disease Categories (Initial View) -->
+    <div id="categories-view">
+      <div class="categories-grid">
+        <!-- Diabetes Card -->
+        <div class="disease-card animate-fade" style="animation-delay: 0.1s;">
+          <div class="card-header">
+            <h2 class="card-title">Diabetes</h2>
+            <p class="card-description">Predict risk of diabetes based on symptoms and health data.</p>
+          </div>
+          <div class="card-content">
+            <button class="card-button" data-disease="diabetes">Select</button>
+          </div>
+        </div>
+        
+        <!-- Heart Disease Card -->
+        <div class="disease-card animate-fade" style="animation-delay: 0.2s;">
+          <div class="card-header">
+            <h2 class="card-title">Heart Disease</h2>
+            <p class="card-description">Evaluate heart disease risk using clinical and lifestyle factors.</p>
+          </div>
+          <div class="card-content">
+            <button class="card-button" data-disease="heart">Select</button>
+          </div>
+        </div>
+        
+        <!-- Cancer Card -->
+        <div class="disease-card animate-fade" style="animation-delay: 0.3s;">
+          <div class="card-header">
+            <h2 class="card-title">Cancer</h2>
+            <p class="card-description">Risk assessment for various types of cancer.</p>
+          </div>
+          <div class="card-content">
+            <button class="card-button" data-disease="cancer">Select</button>
+          </div>
+        </div>
+        
+        <!-- Brain Tumor Card -->
+        <div class="disease-card animate-fade" style="animation-delay: 0.4s;">
+          <div class="card-header">
+            <h2 class="card-title">Brain Tumor</h2>
+            <p class="card-description">Assessment based on symptoms and risk factors.</p>
+          </div>
+          <div class="card-content">
+            <button class="card-button" data-disease="brain">Select</button>
+          </div>
+        </div>
+        
+        <!-- Dengue Fever Card -->
+        <div class="disease-card animate-fade" style="animation-delay: 0.5s;">
+          <div class="card-header">
+            <h2 class="card-title">Dengue Fever</h2>
+            <p class="card-description">Check risk based on symptoms and exposure.</p>
+          </div>
+          <div class="card-content">
+            <button class="card-button" data-disease="dengue">Select</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Prediction Form View (Initially Hidden) -->
+    <div id="prediction-view" class="hidden">
+      <div class="prediction-container">
+        <div class="prediction-header">
+          <h2 class="prediction-title" id="prediction-title">Diabetes Prediction</h2>
+          <button class="back-button" id="back-button">Back to Categories</button>
+        </div>
+        
+        <!-- Cancer Tabs (Initially Hidden) -->
+        <div id="cancer-tabs" class="tabs hidden">
+          <button class="tab active" data-tab="lung">Lung Cancer</button>
+          <button class="tab" data-tab="breast">Breast Cancer</button>
+          <button class="tab" data-tab="blood">Blood Cancer</button>
+          <button class="tab" data-tab="clavicle">Clavicle Cancer</button>
+        </div>
+        
+        <!-- Form -->
+        <div class="form-container">
+          <form id="prediction-form">
+            <div class="form-grid" id="form-fields">
+              <!-- Form fields will be dynamically populated based on disease selection -->
+            </div>
+            <button type="submit" class="submit-button">Predict Risk</button>
+          </form>
+        </div>
+        
+        <!-- Results Section (Initially Hidden) -->
+        <div id="results-section" class="hidden">
+          <div class="results-card">
+            <div class="results-header">
+              <h3 class="results-title">Prediction Results</h3>
+            </div>
+            <p class="results-description">This is a simulated result for demonstration purposes.</p>
+            
+            <div class="result-item">
+              <span class="result-label">Risk Level:</span>
+              <span class="result-value" id="risk-level">Moderate</span>
+            </div>
+            
+            <div class="result-item">
+              <span class="result-label">Risk Score:</span>
+              <span class="result-value" id="risk-score">65.7%</span>
+            </div>
+            
+            <div class="recommendations">
+              <h4 class="recommendations-title">Recommendations:</h4>
+              <ul class="recommendations-list" id="recommendations-list">
+                <li>Consult with a healthcare provider for professional evaluation</li>
+                <li>Maintain a healthy lifestyle with proper diet and exercise</li>
+                <li>Schedule regular health check-ups</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Disease data configuration
+    const diseaseData = {
+      diabetes: {
+        name: "Diabetes",
+        fields: ["Age", "BMI", "Glucose Level", "Blood Pressure", "Insulin", "Family History"]
+      },
+      heart: {
+        name: "Heart Disease",
+        fields: ["Age", "Cholesterol", "Blood Pressure", "Heart Rate", "Exercise Habits", "Smoking Status"]
+      },
+      cancer: {
+        name: "Cancer",
+        subTypes: {
+          lung: { name: "Lung Cancer" },
+          breast: { name: "Breast Cancer" },
+          blood: { name: "Blood Cancer" },
+          clavicle: { name: "Clavicle Cancer" }
+        }
+      },
+      brain: {
+        name: "Brain Tumor",
+        fields: ["Age", "Headaches", "Vision Problems", "Seizures", "Balance Issues", "Family History"]
+      },
+      dengue: {
+        name: "Dengue Fever",
+        fields: ["Fever", "Headache", "Joint Pain", "Rash", "Recent Travel", "Mosquito Exposure"]
+      }
+    };
+    
+    // DOM elements
+    const categoriesView = document.getElementById('categories-view');
+    const predictionView = document.getElementById('prediction-view');
+    const predictionTitle = document.getElementById('prediction-title');
+    const backButton = document.getElementById('back-button');
+    const cancerTabs = document.getElementById('cancer-tabs');
+    const formFields = document.getElementById('form-fields');
+    const predictionForm = document.getElementById('prediction-form');
+    const resultsSection = document.getElementById('results-section');
+    const riskLevel = document.getElementById('risk-level');
+    const riskScore = document.getElementById('risk-score');
+    
+    // Event listeners
+    document.querySelectorAll('.card-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const diseaseId = this.getAttribute('data-disease');
+        showPredictionForm(diseaseId);
+      });
+    });
+    
+    backButton.addEventListener('click', function() {
+      predictionView.classList.add('hidden');
+      categoriesView.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+    });
+    
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const cancerType = this.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // No need to update form fields for cancer subtypes in this demo
+      });
+    });
+    
+    predictionForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      showResults();
+    });
+    
+    // Functions
+    function showPredictionForm(diseaseId) {
+      const disease = diseaseData[diseaseId];
+      
+      // Update title
+      predictionTitle.textContent = `${disease.name} Prediction`;
+      
+      // Show/hide cancer tabs if needed
+      if (diseaseId === 'cancer') {
+        cancerTabs.classList.remove('hidden');
+      } else {
+        cancerTabs.classList.add('hidden');
+      }
+      
+      // Populate form fields
+      formFields.innerHTML = '';
+      
+      if (diseaseId === 'cancer') {
+        // Common cancer form fields
+        ['Age', 'Gender', 'Family History', 'Smoking Status'].forEach(field => {
+          createFormField(field);
+        });
+      } else if (disease.fields) {
+        disease.fields.forEach(field => {
+          createFormField(field);
+        });
+      }
+      
+      // Show prediction view, hide categories
+      categoriesView.classList.add('hidden');
+      predictionView.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+    }
+    
+    function createFormField(label) {
+      const fieldId = label.toLowerCase().replace(/\s/g, '');
+      
+      const fieldDiv = document.createElement('div');
+      fieldDiv.className = 'form-group';
+      
+      const fieldLabel = document.createElement('label');
+      fieldLabel.className = 'form-label';
+      fieldLabel.setAttribute('for', fieldId);
+      fieldLabel.textContent = label;
+      
+      const fieldInput = document.createElement('input');
+      fieldInput.className = 'form-input';
+      fieldInput.id = fieldId;
+      fieldInput.name = fieldId;
+      fieldInput.type = 'text';
+      fieldInput.placeholder = `Enter your ${label.toLowerCase()}`;
+      fieldInput.required = true;
+      
+      fieldDiv.appendChild(fieldLabel);
+      fieldDiv.appendChild(fieldInput);
+      formFields.appendChild(fieldDiv);
+    }
+    
+    function showResults() {
+      // Generate random risk level and score for demo
+      const riskLevels = ['Low', 'Moderate', 'High'];
+      const randomRisk = riskLevels[Math.floor(Math.random() * riskLevels.length)];
+      const randomScore = (Math.random() * 100).toFixed(1);
+      
+      // Update result display
+      riskLevel.textContent = randomRisk;
+      riskLevel.className = 'result-value ' + randomRisk.toLowerCase();
+      riskScore.textContent = randomScore + '%';
+      
+      // Show results section
+      resultsSection.classList.remove('hidden');
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

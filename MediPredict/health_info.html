@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Information - MediPredict</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background-color: rgba(79, 209, 197, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4FD1C5;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #4FD1C5;
+    }
+    
+    .nav-button {
+      background-color: transparent;
+      border: 1px solid #e2e8f0;
+      color: #4b5563;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-button:hover {
+      background-color: rgba(79, 209, 197, 0.1);
+      color: #4FD1C5;
+    }
+    
+    /* Health Info Page */
+    .health-info {
+      margin-top: 80px;
+      padding: 48px 0;
+    }
+    
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .page-header p {
+      font-size: 1.25rem;
+      color: #4a5568;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Health Cards */
+    .health-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+    }
+    
+    @media (min-width: 640px) {
+      .health-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .health-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .health-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .health-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+    }
+    
+    .icon-container {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(79, 209, 197, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .heart-icon { color: #FC8181; }
+    .activity-icon { color: #4299E1; }
+    .brain-icon { color: #9F7AEA; }
+    .apple-icon { color: #48BB78; }
+    .pill-icon { color: #ECC94B; }
+    .dumbbell-icon { color: #ED8936; }
+    
+    .card-header h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .card-content {
+      padding: 0 20px 20px;
+    }
+    
+    .card-content p {
+      color: #4a5568;
+      line-height: 1.7;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      margin-top: 64px;
+      background-color: rgba(79, 209, 197, 0.05);
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    @media (min-width: 768px) {
+      .cta-section {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
+        gap: 40px;
+      }
+    }
+    
+    .cta-icon {
+      font-size: 4rem;
+      color: #4FD1C5;
+      margin-bottom: 24px;
+    }
+    
+    @media (min-width: 768px) {
+      .cta-icon {
+        margin-bottom: 0;
+      }
+    }
+    
+    .cta-content {
+      flex: 1;
+    }
+    
+    .cta-content h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .cta-content p {
+      color: #4a5568;
+      margin-bottom: 24px;
+      font-size: 1.1rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: #4FD1C5;
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+      background-color: #38B2AC;
+    }
+    
+    .cta-button i {
+      margin-left: 8px;
+    }
+    
+    /* Footer */
+    .footer {
+      margin-top: 64px;
+      padding: 32px 0;
+      text-align: center;
+      color: #718096;
+      font-size: 0.875rem;
+    }
+    
+    /* Animation for card reveal */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animated {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.5s; }
+    .delay-5 { animation-delay: 0.6s; }
+    .delay-6 { animation-delay: 0.7s; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-stethoscope" style="color: #4FD1C5;"></i>
+        </div>
+        <span class="logo-text">MediPredict</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Predict</a>
+        <a href="#" class="active"><i class="fas fa-heart"></i> Health Info</a>
+        <a href="#"><i class="fas fa-info-circle"></i> About</a>
+      </div>
+      
+      <button class="nav-button">Dashboard</button>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main class="health-info container">
+    <div class="page-header">
+      <h1>Health Information</h1>
+      <p>Explore essential health information and tips to maintain your well-being and prevent diseases.</p>
+    </div>
+    
+    <!-- Health Cards -->
+    <div class="health-grid">
+      <!-- Card 1 -->
+      <div class="health-card animated delay-1">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-heart heart-icon"></i>
+          </div>
+          <h3>Heart Health</h3>
+        </div>
+        <div class="card-content">
+          <p>Maintain a healthy heart by eating a balanced diet, exercising regularly, and avoiding tobacco. Regular checkups can help monitor your cardiovascular health.</p>
+        </div>
+      </div>
+      
+      <!-- Card 2 -->
+      <div class="health-card animated delay-2">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-running activity-icon"></i>
+          </div>
+          <h3>Physical Activity</h3>
+        </div>
+        <div class="card-content">
+          <p>Aim for at least 150 minutes of moderate activity or 75 minutes of vigorous activity each week. Regular physical activity helps maintain weight and reduces health risks.</p>
+        </div>
+      </div>
+      
+      <!-- Card 3 -->
+      <div class="health-card animated delay-3">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-brain brain-icon"></i>
+          </div>
+          <h3>Mental Wellness</h3>
+        </div>
+        <div class="card-content">
+          <p>Practice mindfulness, get adequate sleep, and maintain social connections to support mental health. Don't hesitate to seek professional help when needed.</p>
+        </div>
+      </div>
+      
+      <!-- Card 4 -->
+      <div class="health-card animated delay-4">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-apple-alt apple-icon"></i>
+          </div>
+          <h3>Nutrition</h3>
+        </div>
+        <div class="card-content">
+          <p>Eat a variety of fruits, vegetables, whole grains, lean proteins, and healthy fats for optimal health. Proper nutrition is fundamental to preventing chronic diseases.</p>
+        </div>
+      </div>
+      
+      <!-- Card 5 -->
+      <div class="health-card animated delay-5">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-pills pill-icon"></i>
+          </div>
+          <h3>Medication Management</h3>
+        </div>
+        <div class="card-content">
+          <p>Follow prescriptions exactly as directed and keep regular appointments with healthcare providers. Never stop medication without consulting your doctor.</p>
+        </div>
+      </div>
+      
+      <!-- Card 6 -->
+      <div class="health-card animated delay-6">
+        <div class="card-header">
+          <div class="icon-container">
+            <i class="fas fa-dumbbell dumbbell-icon"></i>
+          </div>
+          <h3>Fitness</h3>
+        </div>
+        <div class="card-content">
+          <p>Incorporate strength training at least twice a week along with cardiovascular exercise. Focus on building muscle mass, flexibility, and endurance for overall fitness.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section animated delay-6">
+      <div class="cta-icon">
+        <i class="fas fa-stethoscope"></i>
+      </div>
+      <div class="cta-content">
+        <h2>Need More Specific Information?</h2>
+        <p>Our disease prediction tool can help you understand potential health risks based on your symptoms and health data. Get personalized health insights today.</p>
+        <a href="#" class="cta-button">Try Disease Prediction <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </main>
+  
+  <footer class="footer container">
+    <p>&copy; 2023 MediPredict. All rights reserved. | Powered by AI health technology.</p>
+  </footer>
+  
+  <script>
+    // Simple script to check if element is in viewport and add 'is-visible' class
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initially set the animations to play
+      setTimeout(function() {
+        const elements = document.querySelectorAll('.animated');
+        elements.forEach(function(element) {
+          element.style.opacity = '1';
+        });
+      }, 100);
+    });
+  </script>
+</body>
+</html>
